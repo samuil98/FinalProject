@@ -1,4 +1,5 @@
 ﻿using System;
+using DungeonGame.Hero;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,21 +14,21 @@ namespace DungeonGame.Monsters
         public double Health { get; set; }
         public int Attak { get; set; }
         public int Defence { get; set; }
-        public double AttakRate { get; set; }
         public int Experience { get; set; }
-        
+ 
+
         public void ApplyBurning(int round)
         {
             while (round <= round + 3)
-                {
+            {
                 Health = Health - 3;
-                }           
+            }
         }
         public void ApplyStun(int round)
         {
-            while (round <= round+1)
+            while (round <= round + 1)
             {
-                AttakRate = 0;
+                //Make monster not attack for a round.            
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using DungeonGame.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,23 +7,21 @@ using System.Threading.Tasks;
 
 namespace DungeonGame.Hero
 {
-    class Hero : Player.Stats
+    class Hero : Stats
     {
         public static int round;
         public static int battleCount;
         public override double Attack { get; set; }
         public override double Defence { get; set; }
-        public override double AtackRate { get; set; }
         public override int Level { get; set; }
         public override double XP { get; set ; }
         public override double Health { get; set; }
         public override double MaxHealth { get; set; }
 
-        public Hero(double att,double def, double attrate, double hp)
+        public Hero(double att,double def)
         {
             this.Attack = att;
             this.Defence = def;
-            this.AtackRate = attrate;
             this.Health = MaxHealth;
             this.Level = 1;
             this.XP = 0;
@@ -42,6 +41,7 @@ namespace DungeonGame.Hero
 
             }
         }
+
         private void FireBall (Monsters.Monster monster)
         {
             int round = Hero.round;
@@ -56,12 +56,31 @@ namespace DungeonGame.Hero
             monster.Health -= damage;
             monster.ApplyStun(round);
         }
-       
 
-        //public void StartBattle(Monsters.Monster monster)
-        //{
-        //    round = 0;
-            
-        //}
+        public void LevelUp()
+        {
+            Console.Clear();
+            XP = 0;
+            Level++;
+            MaxHealth += 30;
+            Health = MaxHealth;
+            Attack += 5;
+
+
+            Console.WriteLine("X────────────────────────────X");
+            Box.Create($"You are now level {Level}.", 30);
+            Console.WriteLine("X────────────────────────────X");
+            KeyReader.Pause();
+        }
+
+
+        /*
+        public void StartBattle(Monsters.Monster monster)
+        {
+            round = 0;
+        }
+        */
     }
+
 }
+
