@@ -20,6 +20,7 @@ namespace DungeonGame.Hero
 
         public Hero(double att,double def)
         {
+            this.MaxHealth = 100;
             this.Attack = att;
             this.Defence = def;
             this.Health = MaxHealth;
