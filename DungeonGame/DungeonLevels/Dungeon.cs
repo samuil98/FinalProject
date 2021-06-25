@@ -8,7 +8,7 @@ namespace DungeonGame
         static void Main(string[] args)
         {
             int dungeonLevel = 1;
-            
+
         }
         
             
