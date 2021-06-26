@@ -11,6 +11,8 @@ namespace DungeonGame.Hero
     {
         public static int round;
         public static int battleCount;
+        private object hero;
+
         public override double Attack { get; set; }
         public override double Defence { get; set; }
         public override int Level { get; set; }
@@ -18,38 +20,31 @@ namespace DungeonGame.Hero
         public override double Health { get; set; }
         public override double MaxHealth { get; set; }
 
-        public Hero(double att,double def)
+        public Hero()
         {
-            this.Attack = att;
-            this.Defence = def;
+            this.Attack = 10;
+            this.Defence = 15;
             this.Health = MaxHealth;
             this.Level = 1;
             this.XP = 0;
         }
 
 
-        internal void CastAnAbility(char key, Monsters.Monster monster)
+        internal void AttackAnEnemy(Monsters.Monster monster)
         {
-            switch (key)
-            {
-                case 'f':
-                    FireBall(monster);
-                    break;
-                case 'l':
-                    LightningBolt(monster);
-                    break;
-
-            }
+            double damage = Attack;
+            monster.Health -= damage;
+                
         }
 
-        private void FireBall (Monsters.Monster monster)
+        internal void FireBall (Monsters.Monster monster)
         {
             int round = Hero.round;
-            double demage = Attack * 1.2;
-            monster.Health = monster.Health - demage;
+            double damage = Attack * 1.2;
+            monster.Health -= damage;
             monster.ApplyBurning(round);
         }
-        private void LightningBolt(Monsters.Monster monster)
+        internal void LightningBolt(Monsters.Monster monster)
         {
             int round = Hero.round;
             double damage = Attack * 1.5;

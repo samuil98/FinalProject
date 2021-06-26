@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DungeonGame.Monsters
 {
-    class BossMonster : Monster
+    class Boss : Monster
     {
+
     }
 }

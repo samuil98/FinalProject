@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DungeonGame.Helpers
 {
-    class NumberGenerator
+    public  class NumberGenerator
     {
-        private readonly Random _random = new Random();
+        private static readonly Random _random = new Random();
 
-        public int RandomNumber(int min, int max)
+        public static int RandomNumber(int min, int max)
         {
             return _random.Next(min, max);
         }
