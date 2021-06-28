@@ -9,24 +9,26 @@ namespace DungeonGame.Hero
 {
     class Hero : Stats
     {
-        public static int round;
-        public static int battleCount;
-        private object hero;
-
+        internal int cooldownLB = 0;
+        internal int cooldownFB = 0;
+        public string Name { get; set; }
         public override double Attack { get; set; }
         public override double Defence { get; set; }
         public override int Level { get; set; }
-        public override double XP { get; set ; }
+        public override int XP { get; set ; }
+        public int MaxXp { get; set; }
         public override double Health { get; set; }
         public override double MaxHealth { get; set; }
 
         public Hero()
         {
+            Console.WriteLine("Enter Hero Name:");
+            this.Name = Console.ReadLine();
             this.Attack = 10;
             this.Defence = 15;
             this.Health = MaxHealth;
             this.Level = 1;
-            this.XP = 0;
+            this.MaxXp = 100;
         }
 
 
@@ -39,17 +41,17 @@ namespace DungeonGame.Hero
 
         internal void FireBall (Monsters.Monster monster)
         {
-            int round = Hero.round;
+            cooldownFB = DungeonLevels.Battle.round + 3;
             double damage = Attack * 1.2;
             monster.Health -= damage;
-            monster.ApplyBurning(round);
+            monster.ApplyBurning(3);
+           
         }
         internal void LightningBolt(Monsters.Monster monster)
         {
-            int round = Hero.round;
+            cooldownLB = DungeonLevels.Battle.round + 3;
             double damage = Attack * 1.5;
-            monster.Health -= damage;
-            monster.ApplyStun(round);
+            monster.Health -= damage;           
         }
 
         public void LevelUp()
@@ -60,6 +62,7 @@ namespace DungeonGame.Hero
             MaxHealth += 30;
             Health = MaxHealth;
             Attack += 5;
+            MaxXp += 50;
 
 
             Console.WriteLine("X────────────────────────────X");
@@ -68,13 +71,6 @@ namespace DungeonGame.Hero
             KeyReader.Pause();
         }
 
-
-        /*
-        public void StartBattle(Monsters.Monster monster)
-        {
-            round = 0;
-        }
-        */
     }
 
 }

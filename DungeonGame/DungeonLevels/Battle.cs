@@ -5,41 +5,70 @@ using System.Text;
 using System.Threading.Tasks;
 using DungeonGame.Hero;
 using DungeonGame.Monsters;
+using static DungeonGame.Helpers.KeyReader;
+
 
 namespace DungeonGame.DungeonLevels
 {
     class Battle
     {
-        public int round = 1;
+        public static int round = 1;
  
         public Hero.Hero Hero { get; set; }
         public Monster Monster{ get; set;}
 
-        void AttackHero(Monster monster)
+        public Battle()
+        {
+
+        }
+
+        public void AttackHero(Monster monster)
         {
             
             double damage = monster.Attack;
             Hero.Health -= damage;
         }
-        internal void MakeAMove(char key, Monster monster)
+        internal void MakeAMove( Monster monster)
         {
             monster = this.Monster;
-            switch (key)
+            ConsoleKeyInfo key = Pause();
+
+            switch (key.Key)
             {
-                case 'a':
+                case ConsoleKey.A:
                     Hero.AttackAnEnemy(monster);
                     AttackHero(monster);
                     break;
-                case 'f':
+                case ConsoleKey.F:
+                    if (Hero.cooldownFB != 0)
+                    {
+                        Console.WriteLine("This skill is not ready yet");
+                        Hero.cooldownFB--;
+                        break;
+                    }
                     Hero.FireBall(monster);
                     AttackHero(monster);
                     break;
-                case 'l':
+                case ConsoleKey.L:
+                    if (Hero.cooldownLB != 0)
+                    {
+                        Console.WriteLine("This skill is not ready yet");
+                        Hero.cooldownLB--;
+                        break;
+                    }
                     Hero.LightningBolt(monster);
                     break;
-
+                default:
+                    Error();
+                    break;
             }
-            
+            round++ ;
+        }
+        public void StartBatle()
+        {
+            //MakeAMove()
+
+            Dungeon.battleCount++ ;
         }
     }
 }

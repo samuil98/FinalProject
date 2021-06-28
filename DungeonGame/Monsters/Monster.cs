@@ -15,7 +15,7 @@ namespace DungeonGame.Monsters
         public override double Health { get; set; }
         public override double Attack { get; set; }
         public override double Defence { get; set; }
-        public override double XP{ get; set; }
+        public override int XP{ get; set; }
         public override double MaxHealth { get; set; }
 
         public Monster()
@@ -29,19 +29,13 @@ namespace DungeonGame.Monsters
         }
         
 
-        public void ApplyBurning(int round)
+        internal void ApplyBurning(int round)
         {
             while (round <= round + 3)
             {
                 Health -= 0.1 * MaxHealth;
             }
         }
-        public void ApplyStun(int round)
-        {
-            while (round <= round + 1)
-            {
-                //Make monster not attack for a round.            
-            }
-        }
+
     }
 }

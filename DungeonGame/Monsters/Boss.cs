@@ -8,6 +8,9 @@ namespace DungeonGame.Monsters
 {
     class Boss : Monster
     {
-
+        public Boss():base()
+        {
+            Level = 3 * Dungeon.dungeonLevel;
+        }
     }
 }
