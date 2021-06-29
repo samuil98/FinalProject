@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace DungeonGame.Monsters
 {
-    class BossMonster : Monster
+    class Boss : Monster
     {
+        public Boss():base()
+        {
+            Level = 3 * Dungeon.dungeonLevel;
+        }
     }
 }

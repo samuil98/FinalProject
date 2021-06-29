@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DungeonGame.Helpers
 {
-    class KeyReader
+    public class KeyReader
     {
-        public static void Pause()
+        public static ConsoleKeyInfo Pause()
         {
-            Console.ReadKey();
+           return Console.ReadKey();
         }
         public static void Continue()
         {
