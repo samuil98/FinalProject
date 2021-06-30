@@ -34,6 +34,7 @@ namespace DungeonGame.Monsters
             while (round <= round + 3)
             {
                 Health -= 0.1 * MaxHealth;
+                break;
             }
         }
 

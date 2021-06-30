@@ -17,9 +17,11 @@ namespace DungeonGame.DungeonLevels
         public Hero.Hero Hero { get; set; }
         public Monster Monster{ get; set;}
 
-        public Battle()
+        public Battle(Hero.Hero hero,Monster monster)
         {
-
+            hero = Dungeon.hero;
+            this.Hero = hero;
+            this.Monster = monster;
         }
 
         public void AttackHero(Monster monster)
@@ -30,26 +32,29 @@ namespace DungeonGame.DungeonLevels
         }
         internal void MakeAMove( Monster monster)
         {
-            monster = this.Monster;
-            ConsoleKeyInfo key = Pause();
 
-            switch (key.Key)
+            again:
+            monster = this.Monster;
+            string key = Console.ReadLine();
+            Continue();
+
+            switch (key)
             {
-                case ConsoleKey.A:
+                case "A":
                     Hero.AttackAnEnemy(monster);
                     AttackHero(monster);
                     break;
-                case ConsoleKey.F:
+                case "F":
                     if (Hero.cooldownFB != 0)
                     {
-                        Console.WriteLine("This skill is not ready yet");
-                        Hero.cooldownFB--;
-                        break;
+                         Console.WriteLine("This skill is not ready yet");
+                         Hero.cooldownFB--;
+                         goto again;
                     }
                     Hero.FireBall(monster);
                     AttackHero(monster);
                     break;
-                case ConsoleKey.L:
+                case "L":
                     if (Hero.cooldownLB != 0)
                     {
                         Console.WriteLine("This skill is not ready yet");
@@ -59,15 +64,28 @@ namespace DungeonGame.DungeonLevels
                     Hero.LightningBolt(monster);
                     break;
                 default:
-                    Error();
-                    break;
+                    //Error();
+                    goto again;
+
             }
+            Console.WriteLine(Hero.Health);
+            Console.WriteLine(monster.Health);
             round++ ;
         }
-        public void StartBatle()
+        public void StartBatle(Monster monster)
         {
-            //MakeAMove()
 
+
+            while (monster.Health > 0)
+            {
+                MakeAMove(monster);
+            }
+            Hero.XP += monster.XP;
+
+            if (Hero.XP >= Hero.MaxXp)
+            {
+                Hero.LevelUp();
+            }
             Dungeon.battleCount++ ;
         }
     }
