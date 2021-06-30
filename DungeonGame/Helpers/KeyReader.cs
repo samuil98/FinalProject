@@ -8,9 +8,9 @@ namespace DungeonGame.Helpers
 {
     public class KeyReader
     {
-        public static ConsoleKeyInfo Pause()
+        public static void Pause()
         {
-           return Console.ReadKey();
+           Console.ReadKey();
         }
         public static void Continue()
         {
@@ -23,7 +23,8 @@ namespace DungeonGame.Helpers
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(" LOOKS LIKE YOU DID SOMETHING WRONG...");
             Console.ReadKey();
-            Console.ForegroundColor = ConsoleColor.White;
+            
+            return;
         }
     }
 }
