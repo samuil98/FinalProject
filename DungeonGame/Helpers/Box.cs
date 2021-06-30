@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonGame
 {
-    class Box
+    public class Box
     {
         public static void Create(string stuffinside, int boxwidth)
         {

@@ -21,10 +21,10 @@ namespace DungeonGame.Monsters
         public Monster()
         {
             Level = Dungeon.dungeonLevel;
-            MaxHealth = 40 * Level;
+            MaxHealth = 40 + 10 * Level;
             Health = MaxHealth;
-            Attack = 7 * Level;
-            Defence = 5 * Level;
+            Attack = 7 + 2.5 * Level;
+            Defence = 5 + 2 * Level;
             XP = NumberGenerator.RandomNumber(30, 50);
         }
         

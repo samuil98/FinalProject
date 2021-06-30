@@ -25,7 +25,7 @@ namespace DungeonGame.Hero
             Console.WriteLine("Enter Hero Name:");
             this.Name = Console.ReadLine();
             this.Attack = 10;
-            this.Defence = 15;          
+            this.Defence = 10;          
             this.Level = 1;
             this.MaxXp = 100;
             this.MaxHealth = 100;
@@ -35,7 +35,7 @@ namespace DungeonGame.Hero
 
         internal void AttackAnEnemy(Monsters.Monster monster)
         {
-            double damage = Attack;
+            double damage = Attack - 0.7*monster.Defence;
             monster.Health -= damage;
                 
         }
@@ -43,14 +43,14 @@ namespace DungeonGame.Hero
         internal void FireBall (Monsters.Monster monster)
         {
             cooldownFB = 3;
-            double damage = Attack * 1.2;
+            double damage = Attack * 1.2 - 0.7 * monster.Defence;
             monster.Health -= damage;
             monster.ApplyBurning(3);           
         }
         internal void LightningBolt(Monsters.Monster monster)
         {
             cooldownLB = 3;
-            double damage = Attack * 1.5;
+            double damage = Attack * 1.5 - 0.5*monster.Defence;
             monster.Health -= damage;           
         }
 
