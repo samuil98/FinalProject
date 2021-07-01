@@ -48,6 +48,7 @@ namespace DungeonGame.DungeonLevels
         again:
             Console.WriteLine("Hero:" + Hero.Health);
             Console.WriteLine("MONSTER:" + monster.Health);
+            Hero.ApplyBurning(monster);
             Console.WriteLine( "RND"+round + " DL"+Dungeon.dungeonLevel + " BC"+ Dungeon.battleCount);
             string key = Console.ReadLine();
             
@@ -65,9 +66,8 @@ namespace DungeonGame.DungeonLevels
                 case "F":
                     if (Hero.cooldownFB > 0)
                     {
-                         Console.WriteLine("This skill is not ready yet");
-                         Hero.cooldownFB--;
-                        Continue();
+                         Console.WriteLine("This skill is not ready yet");           
+                         Continue();
                          goto again;
                     }
                     Hero.FireBall(monster);
@@ -79,8 +79,7 @@ namespace DungeonGame.DungeonLevels
                 case "L":
                     if (Hero.cooldownLB > 0)
                     {
-                        Console.WriteLine("This skill is not ready yet");
-                        Hero.cooldownLB--;
+                        Console.WriteLine("This skill is not ready yet");                       
                         Continue();
                         break;
                     }
@@ -91,9 +90,10 @@ namespace DungeonGame.DungeonLevels
                     break;
                 default:
                     //Error();
-                    goto again;
-
+                    goto again;                    
             }
+            Hero.cooldownFB--;
+            Hero.cooldownLB--;
         }
         public void StartBatle(Monster monster)
         {

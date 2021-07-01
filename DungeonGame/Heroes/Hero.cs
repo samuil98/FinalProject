@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DungeonGame.Monsters;
 
 namespace DungeonGame.Hero
 {
@@ -45,13 +46,21 @@ namespace DungeonGame.Hero
             cooldownFB = 3;
             double damage = Attack * 1.2 - 0.7 * monster.Defence;
             monster.Health -= damage;
-            monster.ApplyBurning(3);           
+            ApplyBurning(monster);           
         }
         internal void LightningBolt(Monsters.Monster monster)
         {
             cooldownLB = 3;
             double damage = Attack * 1.5 - 0.5*monster.Defence;
             monster.Health -= damage;           
+        }
+        internal void ApplyBurning(Monster monster)
+        {
+            if (cooldownFB > 0 & cooldownFB <= 3)
+            {
+                monster.Health -= 0.1 * monster.MaxHealth;
+            }
+            
         }
 
         public void LevelUp()

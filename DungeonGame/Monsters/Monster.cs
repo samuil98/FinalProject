@@ -27,16 +27,6 @@ namespace DungeonGame.Monsters
             Defence = 5 + 2 * Level;
             XP = NumberGenerator.RandomNumber(30, 50);
         }
-        
-
-        internal void ApplyBurning(int round)
-        {
-            while (round <= round + 3)
-            {
-                Health -= 0.1 * MaxHealth;
-                break;
-            }
-        }
 
     }
 }
