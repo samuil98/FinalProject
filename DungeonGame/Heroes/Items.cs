@@ -17,14 +17,14 @@ namespace DungeonGame.Heroes
 
         public Hero.Hero Hero { get; set; }
 
-        public Items( string type, int incr, bool equiped) 
+        public Items( string type, int incr) 
         {
             this.Type = type;
             this.IncreaseStat = incr;
-            this.isEquiped = equiped;
+            this.isEquiped = false;
         }
 
-        void Equip()
+        public  void Equip()
         {
 
             Console.WriteLine("Would you like to eqip it? Equiping it will replace your last item. Not equiping it will throw it away. (Y/N)");
@@ -51,7 +51,7 @@ namespace DungeonGame.Heroes
 
         }
 
-        void Unequip()
+        public void Unequip()
         {
             if (Type == "Weapon")
             {
@@ -64,7 +64,7 @@ namespace DungeonGame.Heroes
                 isEquiped = false;
             }
         }
-        void Use()
+        public void Use()
         {
             if (Type == "Weapon")
             {
@@ -87,7 +87,7 @@ namespace DungeonGame.Heroes
         void FindATresure()
         {
             int chance = NumberGenerator.RandomNumber(0, 100);
-            if (chance <= 20)
+            if (chance <= 50 )
             {
                 Console.WriteLine($"You have found a HealingPotion");
                 this.Type = "Healing Potion";
@@ -95,7 +95,7 @@ namespace DungeonGame.Heroes
                 Equip();
 
             }
-            else if (chance <= 40)
+            else if (chance >= 75)
             {
 
                 Console.WriteLine($"You have found a Chestplate!");
@@ -104,7 +104,7 @@ namespace DungeonGame.Heroes
                 Equip();
 
             }
-            else if (chance <= 60)
+            else
             {
 
                 Console.WriteLine("You have found a new chestplate!\n");

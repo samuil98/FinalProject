@@ -13,16 +13,18 @@ namespace DungeonGame.Heroes
         public int IncreaseStat { get; set; }
         public bool isEquiped { get; set; }
 
-        public int ItemCount;
+        public static int ItemCount;
 
-        void Equip()
-        {
+        abstract void Equip();
+        
+        abstract void Use();
+        
 
-        }
-        void Use()
-        {
+        abstract void Unequip();
+        
+        
             
-        }
+        
 
 
 
