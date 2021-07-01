@@ -12,7 +12,7 @@ namespace DungeonGame
         public static Hero.Hero hero;
         static void Main(string[] args)
         {
-            dungeonLevel = 1 + battleCount / 3 ;
+            dungeonLevel = 1 ;
             Dungeon.hero = new Hero.Hero();
             ChooseAWay();
 
@@ -30,13 +30,13 @@ namespace DungeonGame
             Console.WriteLine("      \\       / ");
             Console.WriteLine("       |   ^  |");
             Console.WriteLine("       |   ^  |");           
-            Console.WriteLine("\nchoose a direction ( L or R):");
+            Console.WriteLine("\nchoose a direction ( L or R):\n Press Q for exit");
             
            // KeyReader.Pause();
             string direction = Console.ReadLine();
             Console.WriteLine(direction.Length + direction);
             int Chance = NumberGenerator.RandomNumber(0, 100);
-            KeyReader.Pause();
+            
 
             switch (direction)
             {
@@ -55,7 +55,7 @@ namespace DungeonGame
                         battle.StartBatle(monster);
 
                     }
-                    break;
+                    goto again;
                 case "R":
                     if (Chance >= 70)
                     {
@@ -68,6 +68,8 @@ namespace DungeonGame
                         Battle battle = new Battle(hero,monster);
                         battle.StartBatle(monster);
                     }
+                    goto again;
+                case "Q":
                     break;
                 default:
                    // KeyReader.Error();
