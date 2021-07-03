@@ -49,7 +49,7 @@ namespace DungeonGame
 
             switch (direction)
             {
-                case "L":
+                case ("L" or "R"):
                     if (Chance <= 30)
                     {
                         Console.WriteLine("You find a treure!");
@@ -65,7 +65,7 @@ namespace DungeonGame
 
                     }
                     goto again;
-                case "R":
+                case "S":
                     if (Chance >= 70)
                     {
                         Item.FindATresure();
