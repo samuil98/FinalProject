@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DungeonGame.Helpers
 {
-    class KeyReader
+    public class KeyReader
     {
         public static void Pause()
         {
-            Console.ReadKey();
+           Console.ReadKey();
         }
         public static void Continue()
         {
@@ -23,7 +23,8 @@ namespace DungeonGame.Helpers
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(" LOOKS LIKE YOU DID SOMETHING WRONG...");
             Console.ReadKey();
-            Console.ForegroundColor = ConsoleColor.White;
+            
+            return;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace DungeonGame.Hero
         public abstract double Attack { get; set; }
         public abstract double Defence { get; set; }
         public abstract int Level { get; set; }
-        public abstract double XP { get; set; }
+        public abstract int XP { get; set; }
         public abstract double Health { get; set; }
         public abstract double MaxHealth { get; set; }
 
