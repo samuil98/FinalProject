@@ -2,6 +2,8 @@
 using DungeonGame.Helpers;
 using DungeonGame.DungeonLevels;
 using DungeonGame.Monsters;
+using System.Collections.Generic;
+using DungeonGame.Hero;
 
 namespace DungeonGame
 {
@@ -10,9 +12,15 @@ namespace DungeonGame
         public static int battleCount;
         public static int dungeonLevel;
         public static Hero.Hero hero;
+        //static List<IItem> items = new List<IItem>();
         static void Main(string[] args)
         {
-            dungeonLevel = 1 + battleCount / 3 ;
+           
+            //items.Add(new Item("Healing potion", hero.MaxHealth - hero.Health));
+            //items.Add(new Item("Weapon", 5));
+            //items.Add(new Item("Armor", 5));
+
+            dungeonLevel = 1 ;
             Dungeon.hero = new Hero.Hero();
             ChooseAWay();
 
@@ -30,13 +38,14 @@ namespace DungeonGame
             Console.WriteLine("      \\       / ");
             Console.WriteLine("       |   ^  |");
             Console.WriteLine("       |   ^  |");           
-            Console.WriteLine("\nchoose a direction ( L or R):");
+            Console.WriteLine("\nchoose a direction ( L or R):\n Press Q for exit");
+            Box.Create("for stats pres S",20);
             
            // KeyReader.Pause();
             string direction = Console.ReadLine();
             Console.WriteLine(direction.Length + direction);
             int Chance = NumberGenerator.RandomNumber(0, 100);
-            KeyReader.Pause();
+            
 
             switch (direction)
             {
@@ -44,7 +53,7 @@ namespace DungeonGame
                     if (Chance <= 30)
                     {
                         Console.WriteLine("You find a treure!");
-                        //FindATresure();
+                        Item.FindATresure();
                     }
                     else
                     {
@@ -55,11 +64,11 @@ namespace DungeonGame
                         battle.StartBatle(monster);
 
                     }
-                    break;
+                    goto again;
                 case "R":
                     if (Chance >= 70)
                     {
-                        //FindATresure();
+                        Item.FindATresure();
                     }
                     else
                     {
@@ -68,6 +77,8 @@ namespace DungeonGame
                         Battle battle = new Battle(hero,monster);
                         battle.StartBatle(monster);
                     }
+                    goto again;
+                case "Q":
                     break;
                 default:
                    // KeyReader.Error();

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DungeonGame.Monsters;
 
 namespace DungeonGame.Hero
 {
@@ -25,7 +26,7 @@ namespace DungeonGame.Hero
             Console.WriteLine("Enter Hero Name:");
             this.Name = Console.ReadLine();
             this.Attack = 10;
-            this.Defence = 15;          
+            this.Defence = 10;          
             this.Level = 1;
             this.MaxXp = 100;
             this.MaxHealth = 100;
@@ -35,23 +36,34 @@ namespace DungeonGame.Hero
 
         internal void AttackAnEnemy(Monsters.Monster monster)
         {
-            double damage = Attack;
+            
+            double damage = Attack - 0.7*monster.Defence;
             monster.Health -= damage;
-                
+            Console.WriteLine("You dealed {0} damage. ",damage);    
         }
 
         internal void FireBall (Monsters.Monster monster)
         {
             cooldownFB = 3;
-            double damage = Attack * 1.2;
+            double damage = Attack * 1.2 - 0.7 * monster.Defence;
             monster.Health -= damage;
-            monster.ApplyBurning(3);           
+            ApplyBurning(monster);
+            Console.WriteLine("You dealed {0} damage and apply burning effect for 3 rounds. ", damage);
         }
         internal void LightningBolt(Monsters.Monster monster)
         {
             cooldownLB = 3;
-            double damage = Attack * 1.5;
-            monster.Health -= damage;           
+            double damage = Attack * 1.5 - 0.5*monster.Defence;
+            monster.Health -= damage;
+            Console.WriteLine("you dealed {0} damage and stuned target fot 1 round. ", damage);
+        }
+        internal void ApplyBurning(Monster monster)
+        {
+            if (cooldownFB > 0 & cooldownFB <= 3)
+            {
+                monster.Health -= 0.1 * monster.MaxHealth;
+            }
+            
         }
 
         public void LevelUp()
