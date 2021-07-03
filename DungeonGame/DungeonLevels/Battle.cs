@@ -27,10 +27,15 @@ namespace DungeonGame.DungeonLevels
         }
 
         public void AttackHero(Monster monster)
-        {
-            
-            double damage = monster.Attack - 0.7*Hero.Defence;
-            Hero.Health -= damage;
+        {           
+            double damage = monster.Attack - 0.6*Hero.Defence;
+            if(damage <= 0)
+            {
+                Console.WriteLine("You had blocked the attack");
+                return;
+            }
+            Hero.Health -= damage;           
+            Console.WriteLine("You had taken {0} damage. ", damage);
         }
         internal void MakeAMove( Monster monster)
         {
@@ -42,6 +47,7 @@ namespace DungeonGame.DungeonLevels
             Console.WriteLine("| F for Fire ball     |");
             Console.WriteLine("| L for Lightnig bolt |");
             Console.WriteLine("|_____________________|");
+            round = 1;
 
             
             monster = this.Monster;
@@ -54,16 +60,16 @@ namespace DungeonGame.DungeonLevels
             
            
 
-            switch (key)
+            switch (key.ToLower())
             {
-                case "A":
+                case "a":
                     Hero.AttackAnEnemy(monster);
                     AttackHero(monster);
                     Console.WriteLine("Hero:" + Hero.Health);
                     Console.WriteLine("MONSTER:" + monster.Health);
                     round++;
                     break;
-                case "F":
+                case "f":
                     if (Hero.cooldownFB > 0)
                     {
                          Console.WriteLine("This skill is not ready yet");           
@@ -76,7 +82,7 @@ namespace DungeonGame.DungeonLevels
                     Console.WriteLine("MONSTER:" + monster.Health);
                     round++;
                     break;
-                case "L":
+                case "l":
                     if (Hero.cooldownLB > 0)
                     {
                         Console.WriteLine("This skill is not ready yet");                       
@@ -92,12 +98,17 @@ namespace DungeonGame.DungeonLevels
                     //Error();
                     goto again;                    
             }
+            KeyReader.Pause();
             Hero.cooldownFB--;
             Hero.cooldownLB--;
         }
         public void StartBatle(Monster monster)
         {
 
+            //if(Dungeon.battleCount == 3)
+            //{
+            //    monster = new Boss();
+            //}
             while (monster.Health > 0)
             {
                 MakeAMove(monster);
@@ -109,13 +120,13 @@ namespace DungeonGame.DungeonLevels
                 }
             }
             Hero.XP += monster.XP;
-
+            Dungeon.battleCount++ ;
             if (Hero.XP >= Hero.MaxXp)
             {
                 Hero.LevelUp();
             }
-            Dungeon.battleCount++ ;
-            if (Dungeon.battleCount == 3)
+            
+            if (Dungeon.battleCount == 4)
             {
                 Dungeon.dungeonLevel++;
                 Dungeon.battleCount = 0;

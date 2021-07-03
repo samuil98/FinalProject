@@ -36,9 +36,10 @@ namespace DungeonGame.Hero
 
         internal void AttackAnEnemy(Monsters.Monster monster)
         {
+            
             double damage = Attack - 0.7*monster.Defence;
             monster.Health -= damage;
-                
+            Console.WriteLine("You dealed {0} damage. ",damage);    
         }
 
         internal void FireBall (Monsters.Monster monster)
@@ -46,13 +47,15 @@ namespace DungeonGame.Hero
             cooldownFB = 3;
             double damage = Attack * 1.2 - 0.7 * monster.Defence;
             monster.Health -= damage;
-            ApplyBurning(monster);           
+            ApplyBurning(monster);
+            Console.WriteLine("You dealed {0} damage and apply burning effect for 3 rounds. ", damage);
         }
         internal void LightningBolt(Monsters.Monster monster)
         {
             cooldownLB = 3;
             double damage = Attack * 1.5 - 0.5*monster.Defence;
-            monster.Health -= damage;           
+            monster.Health -= damage;
+            Console.WriteLine("you dealed {0} damage and stuned target fot 1 round. ", damage);
         }
         internal void ApplyBurning(Monster monster)
         {
