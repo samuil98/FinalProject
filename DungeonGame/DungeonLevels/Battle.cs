@@ -20,7 +20,8 @@ namespace DungeonGame.DungeonLevels
 
         public Battle(Hero.Hero hero,Monster monster)
         {
-            Console.WriteLine("You begin a battle");
+            Console.WriteLine("You encountered a monster!");
+            Console.ReadLine();
             hero = Dungeon.hero;
             this.Hero = hero;
             this.Monster = monster;
@@ -28,36 +29,33 @@ namespace DungeonGame.DungeonLevels
 
         public void AttackHero(Monster monster)
         {           
-            double damage = monster.Attack - 0.6*Hero.Defence;
+            double damage = monster.Attack - 0.3 * Hero.Defence;
             if(damage <= 0)
             {
-                Console.WriteLine("You had blocked the attack");
+                Console.WriteLine("You blocked the attack! ");
                 return;
             }
             Hero.Health -= damage;           
-            Console.WriteLine("You had taken {0} damage. ", damage);
+            Console.WriteLine("You took {0} damage. ", damage.ToString("F"));
         }
         internal void MakeAMove( Monster monster)
         {
             Console.Clear();
-            Console.WriteLine("   \n MAKE A MOVE");
-            Console.WriteLine(" _____________________");
-            //Console.WriteLine("| Choose your move    |");
+            Console.WriteLine("   \n MAKE A MOVE   ");
+            Console.WriteLine("X─────────────────────X");
             Console.WriteLine("| A for Attack        |");
             Console.WriteLine("| F for Fire ball     |");
             Console.WriteLine("| L for Lightnig bolt |");
-            Console.WriteLine("|_____________________|");
-            round = 1;
-
-            
+            Console.WriteLine("X─────────────────────X");
+            round = 1;            
             monster = this.Monster;
+
         again:
-            Console.WriteLine("Hero:" + Hero.Health);
-            Console.WriteLine("MONSTER:" + monster.Health);
+            Console.WriteLine("HERO HP:" + Hero.Health.ToString("F"));
+            Console.WriteLine("MONSTER HP:" + monster.Health.ToString("F"));
             Hero.ApplyBurning(monster);
-            Console.WriteLine( "RND"+round + " DL"+Dungeon.dungeonLevel + " BC"+ Dungeon.battleCount);
-            string key = Console.ReadLine();
-            
+            Console.WriteLine( "Round: "+ round + "  Dungeon: "+ Dungeon.dungeonLevel + " Battle: "+ Dungeon.battleCount);
+            string key = Console.ReadLine();          
            
 
             switch (key.ToLower())
@@ -65,8 +63,6 @@ namespace DungeonGame.DungeonLevels
                 case "a":
                     Hero.AttackAnEnemy(monster);
                     AttackHero(monster);
-                    Console.WriteLine("Hero:" + Hero.Health);
-                    Console.WriteLine("MONSTER:" + monster.Health);
                     round++;
                     break;
                 case "f":
@@ -78,26 +74,25 @@ namespace DungeonGame.DungeonLevels
                     }
                     Hero.FireBall(monster);
                     AttackHero(monster);
-                    Console.WriteLine("HERO:" + Hero.Health);
-                    Console.WriteLine("MONSTER:" + monster.Health);
                     round++;
                     break;
                 case "l":
                     if (Hero.cooldownLB > 0)
                     {
-                        Console.WriteLine("This skill is not ready yet");                       
+                        Console.WriteLine("This skill is not ready yet");
                         Continue();
                         break;
                     }
-                    Hero.LightningBolt(monster);
-                    Console.WriteLine("HERO:" + Hero.Health);
-                    Console.WriteLine("MONSTER:" + monster.Health);
-                    round++;
-                    break;
+                    else
+                    {
+                        Hero.LightningBolt(monster);
+                        round++;
+                        break;
+                    }
                 default:
-                    //Error();
                     goto again;                    
             }
+
             KeyReader.Pause();
             Hero.cooldownFB--;
             Hero.cooldownLB--;
@@ -105,22 +100,31 @@ namespace DungeonGame.DungeonLevels
         public void StartBatle(Monster monster)
         {
 
-            //if(Dungeon.battleCount == 3)
-            //{
-            //    monster = new Boss();
-            //}
+            if (Dungeon.battleCount == 3)
+            {
+                monster.Level = 3 * Dungeon.dungeonLevel;                       //Doesn't increase stats.
+                Console.WriteLine("THIS IS A BOSS MONSTER!");
+                Pause();
+            }
+
             while (monster.Health > 0)
             {
                 MakeAMove(monster);
                 if (Hero.Health <= 0)
                 {
-                    Console.WriteLine("your hero is dead \n GAME OVER");
+                    Console.WriteLine("Your hero is dead \n GAME OVER");
                     Pause();
-                    return;
+                    break;
                 }
-            }
-            Hero.XP += monster.XP;
-            Dungeon.battleCount++ ;
+                if (monster.Health <= 0)
+                {
+                    Console.WriteLine("The Monster is defeated. Press Enter to continue.");
+                    Dungeon.battleCount++;
+                    Hero.XP += monster.XP;
+                    Pause();
+                }
+            }            
+
             if (Hero.XP >= Hero.MaxXp)
             {
                 Hero.LevelUp();

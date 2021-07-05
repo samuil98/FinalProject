@@ -13,8 +13,6 @@ namespace DungeonGame.Hero
         public double IncreaseStat { get; set; }
         public bool IsEquiped { get; set; }
 
-        public static int ItemCount = 0;
-
         static List<IItem> items = new List<IItem>();
 
         //public static Hero Hero { get; set; }
@@ -59,7 +57,7 @@ namespace DungeonGame.Hero
         {
             foreach (var item in items)
             {
-                if (Type == "Weapon" & IsEquiped)
+                if (Type == "Weapon" && IsEquiped)
                 {
                     Dungeon.hero.Attack -= IncreaseStat;
                     IsEquiped = false;
@@ -101,7 +99,6 @@ namespace DungeonGame.Hero
             {
                 items.Add(new Item("Healing Potion",0));
                 Console.WriteLine($"You have found a HealingPotion");
-                ItemCount++;
                 foreach (var item in items)
                 {
                     if (item.Type == "Healing Potion")
@@ -119,7 +116,7 @@ namespace DungeonGame.Hero
             else if (chance >= 75)
             {
                 items.Add(new Item("Armour", atribut));
-                Console.WriteLine($"You have found a Chestplate!");
+                Console.WriteLine($"You have found a Chestplate! \n");
                 foreach (var item in items)
                 {
                     if (item.Type == "Armour")
