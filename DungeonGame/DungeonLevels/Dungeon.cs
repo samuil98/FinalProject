@@ -35,7 +35,7 @@ namespace DungeonGame
                 Console.WriteLine("       |   ^  |");
                 Console.WriteLine("       |   ^  |");
                 Console.WriteLine("\nchoose a direction ( L or R):\n Press S for stats, Q for exit.");
-            } if(room == 2)
+            }else if(room == 2)
             {
                 Console.Clear();
                 Console.WriteLine(" _____________________");
@@ -45,7 +45,7 @@ namespace DungeonGame
                 Console.WriteLine("       |   ^  |   ");
                 Console.WriteLine("\nchoose a direction ( L or R):\n Press S for stats, Q for exit.");
             }
-            if (room == 3)
+            else if (room == 3)
             {
                 Console.Clear();
                 Console.WriteLine("       |   F  |   ");
@@ -56,7 +56,7 @@ namespace DungeonGame
                 Console.WriteLine("       |   ^  |   ");
                 Console.WriteLine("\nchoose a direction ( L, R or F):\n Press S for stats, Q for exit.");
             }
-            if (room == 4)
+            else if (room == 4)
             {
                 Console.Clear();
                 Console.WriteLine("       |   F  |   ");
@@ -67,7 +67,7 @@ namespace DungeonGame
                 Console.WriteLine("       |   ^  |   ");
                 Console.WriteLine("\nchoose a direction (R or F):\n Press S for stats, Q for exit.");
             }
-            if (room == 5)
+            else
             {
                 Console.Clear();
                 Console.WriteLine("       |   F  |   ");
@@ -82,24 +82,35 @@ namespace DungeonGame
 
             string direction = Console.ReadLine();
 
-            int Chance = NumberGenerator.RandomNumber(0, 100);
+            int chance = NumberGenerator.RandomNumber(0, 100);
 
             switch (direction.ToLower())
             {
                 case ("l" or "r" or "f"):
-                    if (Chance <= 30)
+                    if (chance <= 50)
                     {
                         Item.FindATresure();
+                        room++;
+                        goto again;
                     }
-                    else if (Chance <= 70)
+                    else if (chance <= 75)
                     {
                         Hero.Hero hero = Dungeon.hero;
                         Monster monster = new Monster();
                         Battle battle = new Battle(hero, monster);
                         battle.StartBatle(monster);
-
+                        if (hero.XP >= hero.MaxXp)
+                        {
+                            hero.LevelUp();
+                        }
                     }
-                    else goto again;
+                    else
+                    {
+                        room++;
+                        goto again;
+                    }
+
+                    room++;
                     goto again;
 
                 case "s":
@@ -107,10 +118,12 @@ namespace DungeonGame
                     Console.WriteLine(                         
                         $"Hero:    {hero.Name}\n" +
                         $"Level:   {hero.Level}\n" +
-                        $"XP:      {hero.XP}\n" +                       
+                        $"XP:      {hero.XP}/{hero.MaxXp}\n" +      
+                        $"HP:      {hero.Health.ToString("F")}/{hero.MaxHealth}\n" +
                         $"Attack:  {hero.Attack}\n" +
                         $"Defence: {hero.Defence}\n");                      
-                    KeyReader.Pause();
+                    Console.ReadLine();
+                    room++;
                     goto again;
                 
                 case "q":
