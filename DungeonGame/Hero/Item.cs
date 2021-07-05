@@ -9,15 +9,12 @@ namespace DungeonGame.Hero
 {
     class Item : IItem
     {
-        public string Type { get; set; }  // Acceptable only Healing Potion, Weapon, Armour.
+        public string Type { get; set; }  // Acceptable only Healing Potion, Damage Potion, Piece of armour.
         public double IncreaseStat { get; set; }
         public bool IsEquiped { get; set; }
 
-        public static int ItemCount = 0;
+        static List<Item> items = new List<Item>();
 
-        static List<IItem> items = new List<IItem>();
-
-        //public static Hero Hero { get; set; }
 
         public Item( string type, double incr) 
         {
@@ -28,55 +25,9 @@ namespace DungeonGame.Hero
             
         }
 
-        public  void Equip()
-        {
-
-            Console.WriteLine("Would you like to eqip it? Equiping it will replace your last item. Not equiping it will throw it away. (Y/N)");
-            string choice = Console.ReadLine( );
-  
-            switch (choice.ToLower())
-            {
-                case "n":
-                    break;
-
-                case "y": 
-                    if(IsEquiped == true)
-                    {
-                        Unequip();
-                        Use();
-                    }
-                    else
-                    {
-                        Use();
-                    }
-                    break;
-
-            }
-
-        }
-
-        public void Unequip()
-        {
-            foreach (var item in items)
-            {
-                if (Type == "Weapon" & IsEquiped)
-                {
-                    Dungeon.hero.Attack -= IncreaseStat;
-                    IsEquiped = false;
-                    break;
-                }
-                else if (IsEquiped)
-                {
-                    Dungeon.hero.Defence -= IncreaseStat;
-                    IsEquiped = false;
-                    break;
-                }
-                
-            }
-        }
         public void Use()
         {
-            if (Type == "Weapon")
+            if (Type == "Damage Potion")
             {
                 Dungeon.hero.Attack += IncreaseStat;
                 IsEquiped = true;
@@ -84,7 +35,7 @@ namespace DungeonGame.Hero
             else if (Type == "Healing Potion")
             {
                 Dungeon.hero.Health = Dungeon.hero.MaxHealth;
-                //ItemCount--;
+                
             }
             else
             {
@@ -96,52 +47,49 @@ namespace DungeonGame.Hero
         public static void FindATresure()
         {
             int atribut = NumberGenerator.RandomNumber(5,11);
-            int chance = NumberGenerator.RandomNumber(0, 100);
-            if (chance <= 50 )
+            int luck = NumberGenerator.RandomNumber(0, 100);
+
+
+            if (luck <= 40 )
             {
                 items.Add(new Item("Healing Potion",0));
-                Console.WriteLine($"You have found a HealingPotion");
-                ItemCount++;
+                Console.WriteLine($"You have found a HealingPotion! Now you are back to Max Health.");
                 foreach (var item in items)
                 {
                     if (item.Type == "Healing Potion")
                     {
-                        item.Equip();
+                        item.Use();
                         break;
                     }
                     break;
                 }
-                //this.Type = "Healing Potion";
-                //ItemCount++;
-                //Equip();
 
             }
-            else if (chance >= 75)
+            else if (luck <= 70)
             {
                 items.Add(new Item("Armour", atribut));
-                Console.WriteLine($"You have found a Chestplate!");
+                Console.WriteLine($"You have found a Piece of armour! \n");
+                Console.WriteLine($"Defence \n+{atribut}");
                 foreach (var item in items)
                 {
-                    if (item.Type == "Armour")
+                    if (item.Type == "Piece of armour")
                     {
-                        item.Equip();
+                        item.Use();
                         break;
                     }
                     break;
                 }
-                //this.Type = "Armour";
-                //Console.WriteLine($"Stats: +{IncreaseStat} Defence \n");
-                //Equip();
+
 
             }
             else
             {
-                items.Add(new Item("Weapon", atribut));
-                Console.WriteLine("You have found a new sword!\n");
-                //Console.WriteLine($"Stats:\n+{IncreaseStat}");
+                items.Add(new Item("Damage Potion", atribut));
+                Console.WriteLine("You have found a Damage Potion!\n");
+                Console.WriteLine($"Damage +{atribut}");
                 foreach (var item in items)
                 {
-                    if (item.Type == "Weapon")
+                    if (item.Type == "Damage Potion")
                     {
                         item.Use();                       
                         break;
@@ -150,8 +98,9 @@ namespace DungeonGame.Hero
                 }
 
                 
-            }
-         
+            }     
+            
+
 
         }
     }

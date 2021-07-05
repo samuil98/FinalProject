@@ -39,29 +39,36 @@ namespace DungeonGame.Hero
             
             double damage = Attack - 0.7*monster.Defence;
             monster.Health -= damage;
-            Console.WriteLine("You dealed {0} damage. ",damage);    
+            Console.WriteLine("You dealt {0} damage. ", damage.ToString("F"));    
         }
 
         internal void FireBall (Monsters.Monster monster)
         {
             cooldownFB = 3;
-            double damage = Attack * 1.2 - 0.7 * monster.Defence;
+            double damage = Attack * 1.5 - 0.5 * monster.Defence;
             monster.Health -= damage;
-            ApplyBurning(monster);
-            Console.WriteLine("You dealed {0} damage and apply burning effect for 3 rounds. ", damage);
+            
+            Console.WriteLine("You dealt {0} damage and apply burning effect for 3 rounds. ", damage.ToString("F"));
+            ApplyBurning(monster); 
         }
         internal void LightningBolt(Monsters.Monster monster)
         {
             cooldownLB = 3;
-            double damage = Attack * 1.5 - 0.5*monster.Defence;
+            double damage = Attack * 1.5 - 0.5 * monster.Defence;
             monster.Health -= damage;
-            Console.WriteLine("you dealed {0} damage and stuned target fot 1 round. ", damage);
+            Console.WriteLine("You dealt {0} damage, stunned the monster and lowered his defence.", damage.ToString("F"));            
+            monster.Defence -= 1;
+            ApplyBurning(monster);
+            Console.WriteLine("\nPress ENTER to continue...");
+
         }
         internal void ApplyBurning(Monster monster)
         {
             if (cooldownFB > 0 & cooldownFB <= 3)
             {
-                monster.Health -= 0.1 * monster.MaxHealth;
+                double burn = 0.1 * monster.MaxHealth;
+                monster.Health -= burn;
+                Console.WriteLine("Monster took {0} damage from burn effect.", burn);
             }
             
         }
@@ -78,9 +85,9 @@ namespace DungeonGame.Hero
 
 
             Console.WriteLine("X────────────────────────────X");
-            Box.Create($"You are now level {Level}.", 30);
+            Console.WriteLine($"|   You are now level {Level}      |");
             Console.WriteLine("X────────────────────────────X");
-            KeyReader.Pause();
+            Console.ReadLine();
         }
 
     }
