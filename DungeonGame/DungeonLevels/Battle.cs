@@ -54,7 +54,7 @@ namespace DungeonGame.DungeonLevels
         again:
             Console.WriteLine("Hero:" + Hero.Health);
             Console.WriteLine("MONSTER:" + monster.Health);
-            Hero.ApplyBurning(monster);
+            
             Console.WriteLine( "RND"+round + " DL"+Dungeon.dungeonLevel + " BC"+ Dungeon.battleCount);
             string key = Console.ReadLine();
             
@@ -67,6 +67,7 @@ namespace DungeonGame.DungeonLevels
                     AttackHero(monster);
                     Console.WriteLine("Hero:" + Hero.Health);
                     Console.WriteLine("MONSTER:" + monster.Health);
+                   // Hero.ApplyBurning(monster);
                     round++;
                     break;
                 case "f":
@@ -80,6 +81,7 @@ namespace DungeonGame.DungeonLevels
                     AttackHero(monster);
                     Console.WriteLine("HERO:" + Hero.Health);
                     Console.WriteLine("MONSTER:" + monster.Health);
+                    Hero.ApplyBurning(monster);
                     round++;
                     break;
                 case "l":
@@ -92,6 +94,7 @@ namespace DungeonGame.DungeonLevels
                     Hero.LightningBolt(monster);
                     Console.WriteLine("HERO:" + Hero.Health);
                     Console.WriteLine("MONSTER:" + monster.Health);
+                    Hero.ApplyBurning(monster);
                     round++;
                     break;
                 default:
@@ -105,10 +108,10 @@ namespace DungeonGame.DungeonLevels
         public void StartBatle(Monster monster)
         {
 
-            //if(Dungeon.battleCount == 3)
-            //{
-            //    monster = new Boss();
-            //}
+            if(Dungeon.battleCount == 3)
+            {
+                monster = new Boss();
+            }
             while (monster.Health > 0)
             {
                 MakeAMove(monster);
@@ -119,8 +122,10 @@ namespace DungeonGame.DungeonLevels
                     return;
                 }
             }
+            
             Hero.XP += monster.XP;
             Dungeon.battleCount++ ;
+            monster = null;
             if (Hero.XP >= Hero.MaxXp)
             {
                 Hero.LevelUp();

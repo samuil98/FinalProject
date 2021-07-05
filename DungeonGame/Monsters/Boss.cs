@@ -10,7 +10,11 @@ namespace DungeonGame.Monsters
     {
         public Boss():base()
         {
-            Level = 3 * Dungeon.dungeonLevel;
+            Attack = 1.5 * base.Attack;
+            MaxHealth =1.5 * base.MaxHealth;
+            Health = this.MaxHealth;
+            Defence = 1.5 * base.Defence;
+            XP = 2 * base.XP;
         }
     }
 }
