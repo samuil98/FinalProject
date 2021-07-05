@@ -11,8 +11,6 @@ namespace DungeonGame.Hero
     {
         public string Type { get; set; }
         public double IncreaseStat { get; set; }
-        public bool IsEquiped { get; set; }
-    
 
         abstract void Use();
         
