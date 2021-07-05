@@ -29,12 +29,7 @@ namespace DungeonGame.Hero
             {
                 Dungeon.hero.Attack += IncreaseStat;
             }
-            else if (Type == "Healing Potion")
-            {
-                Dungeon.hero.Health = Dungeon.hero.MaxHealth;
-                
-            }
-            else
+            else if(Type == "Piece of armour")
             {
                 Dungeon.hero.Defence += IncreaseStat;
             }
@@ -48,18 +43,7 @@ namespace DungeonGame.Hero
 
             if (luck <= 40 )
             {
-                items.Add(new Item("Healing Potion",0));
-                Console.WriteLine($"You have found a HealingPotion! Now you are back to Max Health.");
-                Console.ReadLine();
-                foreach (var item in items)
-                {
-                    if (item.Type == "Healing Potion")
-                    {
-                        item.Use();
-                        break;
-                    }
-                    break;
-                }
+                Dungeon.hero.Health = Dungeon.hero.MaxHealth;
 
             }
             else if (luck <= 70)
@@ -75,11 +59,10 @@ namespace DungeonGame.Hero
                     if (item.Type == "Piece of armour")
                     {
                         item.Use();
-                        break;
+                        
                     }
                     break;
                 }
-
 
             }
             else
@@ -93,7 +76,7 @@ namespace DungeonGame.Hero
                     if (item.Type == "Damage Potion")
                     {
                         item.Use();                       
-                        break;
+                       
                     }
                     break;
                 }

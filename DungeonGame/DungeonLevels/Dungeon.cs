@@ -119,7 +119,7 @@ namespace DungeonGame
                         $"Hero:    {hero.Name}\n" +
                         $"Level:   {hero.Level}\n" +
                         $"XP:      {hero.XP}/{hero.MaxXp}\n" +      
-                        $"HP:      {hero.Health}/{hero.MaxHealth}\n" +
+                        $"HP:      {hero.Health.ToString("F")}/{hero.MaxHealth}\n" +
                         $"Attack:  {hero.Attack}\n" +
                         $"Defence: {hero.Defence}\n");                      
                     Console.ReadLine();
