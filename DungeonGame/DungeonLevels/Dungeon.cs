@@ -87,13 +87,13 @@ namespace DungeonGame
             switch (direction.ToLower())
             {
                 case ("l" or "r" or "f"):
-                    if (chance <= 50)
+                    if (chance <= 30)
                     {
                         Item.FindATresure();
                         room++;
                         goto again;
                     }
-                    else if (chance <= 75)
+                    else if (chance <= 85)
                     {
                         Hero.Hero hero = Dungeon.hero;
                         Monster monster = new Monster();
@@ -119,7 +119,7 @@ namespace DungeonGame
                         $"Hero:    {hero.Name}\n" +
                         $"Level:   {hero.Level}\n" +
                         $"XP:      {hero.XP}/{hero.MaxXp}\n" +      
-                        $"HP:      {hero.Health}/{hero.MaxHealth}" +
+                        $"HP:      {hero.Health.ToString("F")}/{hero.MaxHealth}\n" +
                         $"Attack:  {hero.Attack}\n" +
                         $"Defence: {hero.Defence}\n");                      
                     Console.ReadLine();

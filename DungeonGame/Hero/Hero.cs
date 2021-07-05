@@ -82,6 +82,7 @@ namespace DungeonGame.Hero
             Health = MaxHealth;
             Attack += 5;
             MaxXp += 50;
+            Defence += 2;
 
 
             Console.WriteLine("X────────────────────────────X");
